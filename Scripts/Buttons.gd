@@ -18,7 +18,7 @@ func _ready():
 
 func _on_play_pressed():
 	print("play")
-	get_tree().change_scene("res://Scenes/Spatial.tscn")
+	var error = get_tree().change_scene("res://Scenes/Spatial.tscn")
 	pass # Replace with function body.
 
 
