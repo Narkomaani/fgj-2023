@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/BattleFloor.obj" type="ArrayMesh" id=2]
@@ -63,9 +63,6 @@ tracks/0/keys = {
 [sub_resource type="CylinderShape" id=5]
 height = 0.384037
 
-[sub_resource type="CubeMesh" id=4]
-size = Vector3( 10, 0.1, 10 )
-
 [sub_resource type="CapsuleMesh" id=14]
 
 [sub_resource type="BoxShape" id=9]
@@ -113,17 +110,6 @@ anims/attack = SubResource( 12 )
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 0.678378, -0.104791, -0.727202, 0.734713, 0.0967563, 0.671442, 0, -0.989776, 0.142629, -47.1703, 52.1964, 43.4992 )
 
-[node name="Floor" type="StaticBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
-
-[node name="CollisionShape" type="CollisionShape" parent="Floor"]
-transform = Transform( 25, 0, 0, 0, 25, 0, 0, 0, 25, 0.606808, -3.18822, -0.658437 )
-shape = SubResource( 5 )
-
-[node name="MeshInstance" type="MeshInstance" parent="Floor"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.109514, -0.000155449, 0.0710182 )
-mesh = SubResource( 4 )
-
 [node name="Assets" type="Spatial" parent="."]
 
 [node name="BackGroundTree2" type="MeshInstance" parent="Assets"]
@@ -131,15 +117,21 @@ transform = Transform( 0.68404, 0, -1.87939, 0, 2, 0, 1.87939, 0, 0.68404, -34.8
 mesh = ExtResource( 3 )
 skeleton = NodePath("../..")
 
-[node name="BattleFloor" type="MeshInstance" parent="Assets"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.05177, -0.840305, 1.32873 )
-mesh = ExtResource( 2 )
-skeleton = NodePath("../..")
-
 [node name="BackGroundTree" type="MeshInstance" parent="Assets"]
 transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 53.8818, -14.5603, 5.99689 )
 mesh = ExtResource( 3 )
 skeleton = NodePath("../..")
+
+[node name="StaticBody" type="StaticBody" parent="Assets"]
+
+[node name="BattleFloor" type="MeshInstance" parent="Assets/StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.05177, -0.840305, 1.32873 )
+mesh = ExtResource( 2 )
+skeleton = NodePath("../../..")
+
+[node name="CollisionShape" type="CollisionShape" parent="Assets/StaticBody"]
+transform = Transform( 25, 0, 0, 0, 25, 0, 0, 0, 25, 0.606808, -4.18822, -0.658437 )
+shape = SubResource( 5 )
 
 [node name="Enemy" type="KinematicBody" parent="." groups=["Enemy"]]
 
