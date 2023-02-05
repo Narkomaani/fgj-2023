@@ -1,12 +1,65 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/fgj suunnitelma.png" type="Texture" id=1]
+[ext_resource path="res://assets/icons/settings.png" type="Texture" id=2]
+[ext_resource path="res://assets/icons/Play.png" type="Texture" id=3]
+[ext_resource path="res://assets/icons/exit.png" type="Texture" id=4]
+[ext_resource path="res://Scripts/Buttons.gd" type="Script" id=5]
 
 [node name="Menu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="FgjSuunnitelma" type="Sprite" parent="."]
-position = Vector2( 514.667, 282.5 )
-scale = Vector2( 0.397917, 0.397917 )
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 2
+size_flags_vertical = 2
 texture = ExtResource( 1 )
+expand = true
+
+[node name="Buttons" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -208.0
+margin_top = -42.0
+margin_right = 208.0
+margin_bottom = 42.0
+script = ExtResource( 5 )
+
+[node name="VSplitContainer" type="VSplitContainer" parent="Buttons"]
+margin_right = 416.0
+margin_bottom = 84.0
+
+[node name="VSplitContainer2" type="VSplitContainer" parent="Buttons/VSplitContainer"]
+margin_right = 416.0
+margin_bottom = 52.0
+
+[node name="play" type="Button" parent="Buttons/VSplitContainer/VSplitContainer2"]
+margin_right = 416.0
+margin_bottom = 20.0
+text = "Play"
+icon = ExtResource( 3 )
+expand_icon = true
+
+[node name="Settings" type="Button" parent="Buttons/VSplitContainer/VSplitContainer2"]
+margin_top = 32.0
+margin_right = 416.0
+margin_bottom = 52.0
+text = "Settings"
+icon = ExtResource( 2 )
+expand_icon = true
+
+[node name="Quit" type="Button" parent="Buttons/VSplitContainer"]
+margin_top = 64.0
+margin_right = 416.0
+margin_bottom = 84.0
+text = "Quit"
+icon = ExtResource( 4 )
+expand_icon = true
+
+[connection signal="pressed" from="Buttons/VSplitContainer/VSplitContainer2/play" to="Buttons" method="_on_play_pressed"]
+[connection signal="pressed" from="Buttons/VSplitContainer/VSplitContainer2/Settings" to="Buttons" method="_on_Settings_pressed"]
+[connection signal="pressed" from="Buttons/VSplitContainer/Quit" to="Buttons" method="_on_Quit_pressed"]
