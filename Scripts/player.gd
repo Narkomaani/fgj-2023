@@ -2,39 +2,68 @@ extends KinematicBody
 
 
 # Declare member variables here.
-
+var melee_damage = 50
 # How fast the player moves in meters per second.
-export var speed = 14
-# The downward acceleration when in the air, in meters per second squared.
-export var fall_acceleration = 75
-
-var velocity = Vector3.ZERO
+export var speed : int = 10
+export var acceleration : int = 5
 
 
-# Called when the node enters the scene tree for the first time.
+var mouse_sensitivity = 0.1
+
+var direction = Vector3()
+var velocity = Vector3()
+
+onready var pivot = $Head
+
+onready var melee_anim= $AnimationPlayer
+onready var hitbox = $Head/Camera/HitBox
+
+
 func _ready():
-	print("hello world!")
-	pass # Replace with function body.
+
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
+	
+	
+func _input(event):
+	if event is InputEventMouseMotion: #Takes in the mouse motion and moves mesh and camera with the movement
+		rotate_y(deg2rad(-event.relative.x * mouse_sensitivity))
+		pivot.rotate_x(deg2rad(-event.relative.y * mouse_sensitivity))
+		pivot.rotation.x = clamp(pivot.rotation.x, deg2rad(-90), deg2rad(90))
+		
+func melee():	
+	if Input.is_action_just_pressed("fire"):
+		if not melee_anim.is_playing():
+			melee_anim.play("attack")
+			melee_anim.queue("Return")
+			
+		if melee_anim.current_animation == "attack":
+			for body in hitbox.get_overlapping_bodies():
+				if body.is_in_group("Enemy"):
+					body.health -= melee_damage #BUggy, crashes game?
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
-	var direction = Vector3.ZERO
-
-	if Input.is_action_pressed("move_right"):
-		direction.x += 1
-	if Input.is_action_pressed("move_left"):
-		direction.x -= 1
-	if Input.is_action_pressed("move_back"):
-		direction.z += 1
+	melee()
+	
+	direction = Vector3()
+	
+	if Input.is_action_just_pressed("ui_cancel"): #Bug, dosent find the function.
+		Input.set_mouse_model(Input.MOUSE_MODE_VISIBLE)
+	
 	if Input.is_action_pressed("move_forward"):
-		direction.z -= 1
+		direction -= transform.basis.z
+	elif Input.is_action_pressed("move_back"):
+		direction += transform.basis.z
 
-	if direction != Vector3.ZERO:
-		direction = direction.normalized()
-		$Pivot.look_at(translation + direction, Vector3.UP)
+	if Input.is_action_pressed("move_left"):
+		direction -= transform.basis.x
+	elif Input.is_action_pressed("move_right"):
+		direction += transform.basis.x
 
-	velocity.x = direction.x * speed
-	velocity.z = direction.z * speed
-	velocity.y -= fall_acceleration * delta
+
+
+	direction = direction.normalized()
+	velocity = direction * speed
+	velocity.linear_interpolate(velocity, acceleration * delta)
 	velocity = move_and_slide(velocity, Vector3.UP)
