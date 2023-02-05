@@ -41,7 +41,7 @@ func melee():
 		if melee_anim.current_animation == "attack":
 			for body in hitbox.get_overlapping_bodies():
 				if body.is_in_group("Enemy"):
-					body.health -= melee_damage #BUggy, crashes game?
+					body.health -= melee_damage
 
 
 func _physics_process(delta):

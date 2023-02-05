@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/BattleFloor.obj" type="ArrayMesh" id=2]
 [ext_resource path="res://assets/TreeCombined.obj" type="ArrayMesh" id=3]
+[ext_resource path="res://Scripts/Enemy.gd" type="Script" id=4]
 
 [sub_resource type="CubeMesh" id=7]
 
@@ -134,6 +135,7 @@ transform = Transform( 25, 0, 0, 0, 25, 0, 0, 0, 25, 0.606808, -4.18822, -0.6584
 shape = SubResource( 5 )
 
 [node name="Enemy" type="KinematicBody" parent="." groups=["Enemy"]]
+script = ExtResource( 4 )
 
 [node name="EnemyMesh" type="MeshInstance" parent="Enemy"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -7.57489, 1.58542, 6.8125 )
