@@ -2,6 +2,7 @@ extends KinematicBody
 
 
 # Declare member variables here.
+
 var melee_damage = 50
 # How fast the player moves in meters per second.
 export var speed : int = 10
