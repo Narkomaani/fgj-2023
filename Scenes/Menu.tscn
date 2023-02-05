@@ -1,22 +1,34 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://assets/fgj suunnitelma.png" type="Texture" id=1]
 [ext_resource path="res://assets/icons/settings.png" type="Texture" id=2]
 [ext_resource path="res://assets/icons/Play.png" type="Texture" id=3]
 [ext_resource path="res://assets/icons/exit.png" type="Texture" id=4]
 [ext_resource path="res://Scripts/Buttons.gd" type="Script" id=5]
+[ext_resource path="res://assets/settings.png" type="Texture" id=6]
+[ext_resource path="res://Scripts/hehe.gd" type="Script" id=7]
 
 [node name="Menu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="background" type="TextureRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 2
 size_flags_vertical = 2
 texture = ExtResource( 1 )
 expand = true
+
+[node name="hehe" type="TextureRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 2
+size_flags_vertical = 2
+texture = ExtResource( 6 )
+expand = true
+script = ExtResource( 7 )
 
 [node name="Buttons" type="VBoxContainer" parent="."]
 anchor_left = 0.5
@@ -62,4 +74,5 @@ expand_icon = true
 
 [connection signal="pressed" from="Buttons/VSplitContainer/VSplitContainer2/play" to="Buttons" method="_on_play_pressed"]
 [connection signal="pressed" from="Buttons/VSplitContainer/VSplitContainer2/Settings" to="Buttons" method="_on_Settings_pressed"]
+[connection signal="pressed" from="Buttons/VSplitContainer/VSplitContainer2/Settings" to="hehe" method="_on_Settings_pressed"]
 [connection signal="pressed" from="Buttons/VSplitContainer/Quit" to="Buttons" method="_on_Quit_pressed"]

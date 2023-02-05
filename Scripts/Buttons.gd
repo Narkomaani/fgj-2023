@@ -24,7 +24,11 @@ func _on_play_pressed():
 
 func _on_Settings_pressed():
 	print("settings")
-	#TODO jos ehtii
+	
+	#hehe = get_node("%hehe")
+	#hehe.visible = true
+	$VSplitContainer/VSplitContainer2/play.visible = false
+	$VSplitContainer/VSplitContainer2/Settings.visible = false
 	pass # Replace with function body.
 
 
