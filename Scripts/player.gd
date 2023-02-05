@@ -49,7 +49,8 @@ func _physics_process(delta):
 	direction = Vector3()
 	
 	if Input.is_action_just_pressed("ui_cancel"): #Bug, dosent find the function.
-		Input.set_mouse_model(Input.MOUSE_MODE_VISIBLE)
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		get_tree().change_scene("res://Scenes/Menu.tscn")
 	
 	if Input.is_action_pressed("move_forward"):
 		direction -= transform.basis.z
